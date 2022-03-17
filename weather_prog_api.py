@@ -20,22 +20,23 @@ parameters = {
     'lat': 28.4089,
     'lon': 77.3178,
     'appid': '7eead96bbe2bd091e641c9a0b90d5800',
-    'exclude': "current,minutely,daily",  #forecasting daily eve
+    'exclude': "current,minutely,daily",  #forecasting based on hourly so exlude other
 }
 req = requests.get(urls, params=parameters)
 response = req.json()
-hourly = response['hourly']
-# print(hourly['weather']['description'])
+hourly = response['hourly'] # parse ohourly data
+
+#it gives forecast for next 48 hour but we need only next 12 hour so.
 for i in range(1, 13):
     weather = hourly[i]['weather'][0]['id']
-    # print([f"{i%13} :weather is:{weather}"])
     if weather < 700:
         print("bring an umbrella")
+        #client of twilio to send message
         client = Client(account_sid, auth_token,http_client=proxy_client)
 
         message = client.messages \
                         .create(
-        body="i want to talk with you babe",
+        body="it will rain today",
         from_='+18454022616',
         to='+918882474233'
                  )
