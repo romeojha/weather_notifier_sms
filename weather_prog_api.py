@@ -1,4 +1,6 @@
 # These are the requests
+#while running on cloud, use "export AUTH_TOKEN={token} python3 {filename.py}"
+
 import requests
 from twilio.rest import Client
 from twilio.http.http_client import TwilioHttpClient
